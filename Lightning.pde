@@ -3,8 +3,9 @@
 //Data Sourced from http://nflcombineresults.com/ and http://www.pro-football-reference.com/draft/
 
 //this interface can be used to store different data types in the same array.
-ArrayList<Prospect> prospects = new ArrayList<Prospect>();
+
 String[] fromFile;
+ArrayList<Prospect> prospects;
 ArrayList<SuperVariable> dims;
 boolean firstMenu = true; //Gets called in the draw menu if on the opening menu
 boolean secondMenu = false; //Determines the Data Categories
@@ -30,12 +31,9 @@ void setup() { //Setup the menus and window that the data is displayed
   size(1920, 1080);
   background(0);
   nfllogo = loadImage("nfllogo.jpg");
+  prospects = new ArrayList<Prospect>();
   fromFile = loadStrings("Data Project1.txt");
-  for (int i = 1; i < fromFile.length; i++) {
-    Prospect p = new Prospect();
-    p.loadStats(fromFile[i]);
-    prospects.add(p);
-  }
+   loadData();
   //dims.add(dim2);;
   // I used this to test if things were working
   /*for (SuperVariable $ : prospects.get(0).statistics) {
@@ -112,7 +110,13 @@ void draw() { //Draw the window and call the various classes that need to be cal
     }
   }
 }
-
+void loadData(){
+ for (int i = 1; i < fromFile.length; i++) {
+    Prospect p = new Prospect();
+    p.loadStats(fromFile[i]);
+    prospects.add(p);
+  }
+}
 void firstMenu() {
   background(109, 186, 255); 
   image(nfllogo, 0, 0, 1920, 1080);
@@ -494,4 +498,4 @@ class Prospect {
   String getName() {
     return(getVar("name").getString());
   }
-}
+} 
